@@ -1,10 +1,10 @@
 <script>
     import Header from '../../Header.svelte';
     import { base } from '$app/paths';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import Clipboard from 'clipboard/dist/clipboard.min?url';
     import Docs from '$lib/docs.js?url';
-    export let data;
+    let { data } = $props();
 </script>
 
 <svelte:head>
@@ -24,10 +24,10 @@
                 {category}
             </li>
             {#each Object.entries(pages) as [label, slug]}
-                <li class:uk-active={$page.params.slug === slug}>
+                <li class:uk-active={page.params.slug === slug}>
                     <a
                         href="{base}/docs/{slug}"
-                        aria-current={$page.params.slug === slug ? 'page' : null}>{label}</a
+                        aria-current={page.params.slug === slug ? 'page' : null}>{label}</a
                     >
                 </li>
             {/each}
@@ -50,15 +50,15 @@
                             <a href="#{id}">{title}</a>
                         </li>
                     {/each}
-                    <li class="uk-nav-divider" />
+                    <li class="uk-nav-divider"></li>
                     {#if data.test}
                         <li>
                             <a
-                                href="../assets/uikit/tests/{$page.params.slug}.html"
+                                href="../assets/uikit/tests/{page.params.slug}.html"
                                 target="_blank"
                                 rel="noreferrer"
                             >
-                                <span class="uk-margin-xsmall-right" uk-icon="link-external" />
+                                <span class="uk-margin-xsmall-right" uk-icon="link-external"></span>
                                 <span class="uk-text-middle">Open test</span>
                             </a>
                         </li>
@@ -69,7 +69,7 @@
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <span class="uk-margin-xsmall-right" uk-icon="warning" />
+                            <span class="uk-margin-xsmall-right" uk-icon="warning"></span>
                             <span class="uk-text-middle">Report issue</span>
                         </a>
                     </li>
@@ -79,18 +79,18 @@
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <span class="uk-margin-xsmall-right" uk-icon="commenting" />
+                            <span class="uk-margin-xsmall-right" uk-icon="commenting"></span>
                             <span class="uk-text-middle">Get help</span>
                         </a>
                     </li>
                     <li>
                         <a
-                            href="https://github.com/uikit/uikit-site/tree/develop/docs/pages/{$page
+                            href="https://github.com/uikit/uikit-site/tree/develop/docs/pages/{page
                                 .params.slug}.md"
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <span class="uk-margin-xsmall-right" uk-icon="pencil" />
+                            <span class="uk-margin-xsmall-right" uk-icon="pencil"></span>
                             <span class="uk-text-middle">Edit this page</span>
                         </a>
                     </li>
